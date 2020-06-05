@@ -170,7 +170,31 @@ void Reverse(struct Node *node){
         first=first->node;
     }
     first->val=auxArr[i];
-} 
+}
+
+struct Node *first;
+
+void ReverseSliding(struct Node *node){
+    struct Node *q=NULL;
+    struct Node *r=NULL;
+    while(node){
+        r=q;
+        q=node;
+        node=node->node;
+        q->node=r;
+    }
+    first=q;
+    // Display(node);
+}
+
+void ReverseRecursion(struct Node *q,struct Node *p){
+    if(p){
+        ReverseRecursion(p,p->node);
+        p->node=q;
+    } else {
+        first=q;
+    }
+}
 
 int main(){
 
@@ -228,6 +252,14 @@ int main(){
 
     Reverse(&node);
     Display(&node);
+
+    printf("Reverse Sliding \n");
+    ReverseSliding(&node);
+    Display(first);
+
+    printf("Reverse Recursion\n");
+    ReverseRecursion(NULL,first);
+    Display(first);
     
     return 0;
 }
