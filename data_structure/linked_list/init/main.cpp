@@ -85,13 +85,62 @@ void Insert(struct Node *node,int index,int val){
     
 }
 
+int getLastElement(struct Node node){
+    while(node.node){
+        node=*node.node;
+    }
+    return node.val;
+}
+
+int Sum(struct Node node){
+    int total=0;
+    while(node.node){
+        total=total+node.val;
+        node=*node.node;
+    }
+    total=total+node.val;
+    return total;
+}
+
+int Count(struct Node node){
+    int count=1;
+    while(node.node){
+        count++;
+        node=*node.node;
+    }
+    return count;
+}
+
+int Max(struct Node node){
+    int max=0;
+    while(node.node){
+        if(node.val>max){
+            max=node.val;
+        }
+        node=*node.node;
+    }
+    if(node.val>max){
+        max=node.val;
+    }
+    return max;
+}
+
+bool LinearSearch(struct Node node, int value){
+    while(node.node){
+        if(node.val == value)
+            return true;
+        node=*node.node;
+    }
+    return false;
+}
+
 int main(){
 
     struct Node node={10,NULL};
     Append(&node,9);
     Append(&node,12);
     Append(&node,56);
-    Append(&node,34);
+    Append(&node,74);
 
     Display(&node);
 
@@ -109,6 +158,26 @@ int main(){
 
     Prepend(&node,18);
     Display(&node);
+
+    printf("\n");
+
+    int lastElement=getLastElement(node);
+    printf("%d\n",lastElement);
+
+    int sumOfLinkedList=Sum(node);
+    printf("%d\n",sumOfLinkedList);
+
+    int countOfLinkedList=Count(node);
+    printf("%d\n",countOfLinkedList);
+
+    int maxOfLinkedList=Max(node);
+    printf("%d\n",maxOfLinkedList);
+
+    bool isThere4=LinearSearch(node,4);
+    printf("%s\n",isThere4 ? "true":"false");
+
+    bool isThere9=LinearSearch(node,9);
+    printf("%s\n",isThere9 ? "true":"false");
 
     return 0;
 }
