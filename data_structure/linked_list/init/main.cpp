@@ -134,30 +134,71 @@ bool LinearSearch(struct Node node, int value){
     return false;
 }
 
+bool IsSorted(struct Node node){
+    while(node.node){
+        if(node.val > (*node.node).val){
+            return false;
+        }
+        node=*node.node;
+    }
+    return true;
+}
+
+void RemoveDuplicateElements(struct Node *node){
+    while(node->node){
+        if(node->val == node->node->val){
+            node->node=node->node->node;
+        }else{
+            node=node->node;
+        }
+    }
+}
+
+void Reverse(struct Node *node){
+    int *auxArr;
+    auxArr=new int[Count(*node)];
+    int i=0;
+    struct Node *first=node;
+    while(node->node){
+        auxArr[i++]=node->val;
+        node=node->node;
+    }
+    auxArr[i]=node->val;
+
+    while(first->node){
+        first->val=auxArr[i--];
+        first=first->node;
+    }
+    first->val=auxArr[i];
+} 
+
 int main(){
 
-    struct Node node={10,NULL};
+    struct Node node={2,NULL};
     Append(&node,9);
     Append(&node,12);
     Append(&node,56);
     Append(&node,74);
+    Append(&node,74);
+    Append(&node,74);
+    Append(&node,70);
 
     Display(&node);
 
     int indexZero=Get(node,1);
     printf("%d\n",indexZero);
 
-    Insert(&node,1,17);
-    Display(&node);
+    // Insert(&node,1,17);
+    // Display(&node);
 
-    Insert(&node,1,23);
-    Display(&node);
+    // Insert(&node,1,23);
+    // Display(&node);
 
-    Update(&node,1,22);
-    Display(&node);
+    // Update(&node,1,22);
+    // Display(&node);
 
-    Prepend(&node,18);
-    Display(&node);
+    // Prepend(&node,18);
+    // Display(&node);
 
     printf("\n");
 
@@ -179,5 +220,14 @@ int main(){
     bool isThere9=LinearSearch(node,9);
     printf("%s\n",isThere9 ? "true":"false");
 
+    bool isSortedLinkedList=IsSorted(node);
+    printf("%s\n",isSortedLinkedList ? "true":"false");
+
+    RemoveDuplicateElements(&node);
+    Display(&node);
+
+    Reverse(&node);
+    Display(&node);
+    
     return 0;
 }
